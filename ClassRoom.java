@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
 
 public class ClassRoom {
     private String roomId;
@@ -21,7 +22,7 @@ public class ClassRoom {
 
         for (Device dvc : this.devices) {
             if (dvc.getDeviceId().equals(device.getDeviceId())) {
-                throw new IllegalStateException("Thiết bị đã tồn tại trong phòng");
+                throw new IllegalStateException("Thiết bị đã tồn tại trong phòng, không thể thực hiện yêu cầu");
             }
         }
 
@@ -29,6 +30,14 @@ public class ClassRoom {
     }
 
     public boolean removeDevice(String deviceId) {
+        for (Device device : this.devices) {
+            if (device.getDeviceId().equals(deviceId)) {
+                this.devices.remove(device);
+                System.out.println("Xóa thiết bị thành công");
+                return true;
+            }
+        }
+        System.out.println("Không tìm thấy thiết bị cần xóa");
         return false;
     }
 
@@ -47,5 +56,17 @@ public class ClassRoom {
             cost += device.calculateMaintenanceCost();
         }
         return cost;
+    }
+
+    public List<Device> getDevicesRequiringMaintenance() {
+        List<Device> devicesRequiringMaintenance = new ArrayList<>();
+        int currentYear = LocalDateTime.now().getYear();
+        for (Device device : this.devices) {
+            if (device.getDeviceStatus() == DeviceStatus.UNDER_MAINTENANCE || (currentYear - device.getCommissioningYear()) > 5) {
+                devicesRequiringMaintenance.add(device);
+            }
+        }
+
+        return devicesRequiringMaintenance;
     }
 }

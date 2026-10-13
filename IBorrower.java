@@ -1,6 +1,5 @@
 public interface IBorrower {
-    String borrowerId();
-    String fullName();
-    
+    String getBorrowerId();
+    String getFullName();
     int getMaximumDevices();
 }
