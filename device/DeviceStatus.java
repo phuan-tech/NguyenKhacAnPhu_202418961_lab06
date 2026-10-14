@@ -1,3 +1,5 @@
+package device;
+
 public enum DeviceStatus {
     AVAILABLE,
     BORROWED,

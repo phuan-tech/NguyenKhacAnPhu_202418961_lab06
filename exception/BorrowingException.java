@@ -1,3 +1,5 @@
+package exception;
+
 public class BorrowingException extends Exception {
     public BorrowingException(String message) {
         super(message);

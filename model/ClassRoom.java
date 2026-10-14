@@ -1,6 +1,7 @@
 import java.util.List;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
+import device.*;
 
 public class ClassRoom {
     private String roomId;
@@ -68,5 +69,31 @@ public class ClassRoom {
         }
 
         return devicesRequiringMaintenance;
+    }
+
+    public List<Device> getDevices() {
+        return new ArrayList<>(devices);
+    }
+
+    public String getRoomId() {
+        return this.roomId;
+    }
+
+    public String getRoomName() {
+        return this.roomName;
+    }
+
+    public int getCapacity() {
+        return this.capacity;
+    }
+
+    public void displayInfo() {
+        System.out.printf("Mã phòng: %s%n", this.getRoomId());
+        System.out.printf("Tên phòng: %s%n", this.getRoomName());
+        System.out.printf("Sức chứa: %d%n: ", this.getCapacity());
+        System.out.println("Danh sách các thiết bị trong phòng: ");
+        for (Device device : this.devices) {
+            System.out.println(device.displayInfo());
+        }
     }
 }

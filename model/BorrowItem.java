@@ -1,26 +1,26 @@
 import java.time.LocalDate;
+import device.Device;
+import device.TeachingDevice;
 
 public class BorrowItem {
-    private Device device;
+    private TeachingDevice device;
     private LocalDate borrowedDate;
+    private LocalDate dueDate;
     private int fromPeriod;
     private int toPeriod;
     private LocalDate returnedDate = null;
     private boolean isReturned = false;
 
-    public BorrowItem(Device device, LocalDate borrowedDate, int fromPeriod, int toPeriod) {
+    public BorrowItem(TeachingDevice device, LocalDate borrowedDate, LocalDate dueDate, int fromPeriod, int toPeriod) {
         if (device == null) {
             throw new IllegalArgumentException("Thiết bị không được null");
         }
 
-        if (toPeriod < fromPeriod) {
-            throw new IllegalArgumentException();
-        }
-
         this.device = device;
         this.borrowedDate = borrowedDate;
-        this.fromPeriod = fromPeriod;
-        this.toPeriod = toPeriod;
+        this.setDueDate(dueDate);
+        this.setFromPeriod(fromPeriod);
+        this.setToPeriod(toPeriod);
     }
 
     public void recordReturnDate(LocalDate returnedDate) {
@@ -31,12 +31,16 @@ public class BorrowItem {
         this.isReturned = true;
     }
 
-    public Device getDevice() {
+    public Device getTeachingDevice() {
         return this.device;
     }
 
     public LocalDate getBorrowedDate() {
         return this.borrowedDate;
+    }
+
+    public LocalDate getDueDate() {
+        return this.dueDate;
     }
 
     public int getFromPeriod() {
@@ -52,6 +56,10 @@ public class BorrowItem {
     }
 
     public void setToPeriod(int toPeriod) {
+        if (toPeriod < this.fromPeriod) {
+            throw new IllegalArgumentException();
+        }
+
         this.toPeriod = toPeriod;
     }
 
@@ -61,5 +69,13 @@ public class BorrowItem {
 
     public boolean getIsReturned() {
         return this.isReturned;
+    }
+
+    public void setDueDate(LocalDate dueDate) {
+        if (dueDate.isBefore(this.borrowedDate)) {
+            throw new IllegalArgumentException();
+        }
+
+        this.dueDate = dueDate;
     }
 }

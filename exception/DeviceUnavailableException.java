@@ -1,3 +1,6 @@
+package exception;
+import device.DeviceStatus;
+
 public class DeviceUnavailableException extends BorrowingException {
     private String deviceId;
     private DeviceStatus currentStatus;

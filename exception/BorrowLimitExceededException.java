@@ -1,3 +1,5 @@
+package exception;
+
 public class BorrowLimitExceededException extends BorrowingException {
     private String borrowerId;
     private int maximumDevices;
