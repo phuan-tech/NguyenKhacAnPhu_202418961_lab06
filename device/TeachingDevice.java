@@ -20,4 +20,10 @@ public abstract class TeachingDevice extends Device {
     public int getMaxBorrowDays() {
         return this.maxBorrowDays;
     }
+
+    public String displayInfo() {
+        return super.displayInfo()
+                + "Số tiết được mượn tối đa: " + this.maxBorrowPeriods
+                + "Số ngày được mượn tối đa: " + this.maxBorrowDays;
+    }
 }

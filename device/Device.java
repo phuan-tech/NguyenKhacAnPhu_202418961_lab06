@@ -54,4 +54,12 @@ public abstract class Device {
     public DeviceStatus getDeviceStatus() {
         return this.status;
     }
+
+    public void markAsBorrowed() {
+        this.status = DeviceStatus.BORROWED;
+    }
+
+    public void markAsAvailable() {
+        this.status = DeviceStatus.AVAILABLE;
+    }
 }

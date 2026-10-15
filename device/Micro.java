@@ -11,7 +11,6 @@ public class Micro extends TeachingDevice {
     }
 
     public String displayInfo() {
-        return super.displayInfo()
-                + "Số tiết được mượn tối đa: " + this.getMaxBorrowPeriods();
+        return super.displayInfo();
     }
 }

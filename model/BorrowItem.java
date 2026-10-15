@@ -1,3 +1,5 @@
+package model;
+
 import java.time.LocalDate;
 import device.Device;
 import device.TeachingDevice;
@@ -77,5 +79,24 @@ public class BorrowItem {
         }
 
         this.dueDate = dueDate;
+    }
+
+    public boolean isOverdue(LocalDate currentDate) {
+        if (this.isReturned) {
+            return false;
+        }
+
+        return currentDate.isAfter(this.dueDate);
+    }
+
+    public boolean wasReturnedLate() {
+        return this.isReturned && this.returnedDate.isAfter(this.dueDate);
+    }
+
+    public String displayInfo() {
+        return this.device.displayInfo()
+                + "Ngày mượn: " + this.borrowedDate
+                + "Ngày đến hạn: " + this.dueDate
+                + "Ngày trả: " + this.returnedDate;
     }
 }

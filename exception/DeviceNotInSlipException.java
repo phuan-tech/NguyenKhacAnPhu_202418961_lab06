@@ -1,5 +1,7 @@
 package exception;
 
-public class DeviceNotInSlipException {
-    
+public class DeviceNotInSlipException extends BorrowingException {
+    public DeviceNotInSlipException(String message) {
+        super(message);
+    }
 }
