@@ -15,7 +15,7 @@ public class BorrowItem {
     private LocalDate returnedDate = null;
     private boolean isReturned = false;
 
-    public BorrowItem(TeachingDevice device, LocalDate borrowedDate, LocalDate dueDate, int fromPeriod, int toPeriod) {
+    public BorrowItem(TeachingDevice device, LocalDate borrowedDate, LocalDate dueDate) {
         if (device == null) {
             throw new IllegalArgumentException("Thiết bị không được null");
         }
@@ -23,8 +23,6 @@ public class BorrowItem {
         this.device = device;
         this.borrowedDate = borrowedDate;
         this.setDueDate(dueDate);
-        this.setFromPeriod(fromPeriod);
-        this.setToPeriod(toPeriod);
     }
 
     // Ghi lại ngày trả
@@ -57,12 +55,19 @@ public class BorrowItem {
     }
 
     public void setFromPeriod(int fromPeriod) {
+        if (fromPeriod < 1 || fromPeriod > 12) {
+            throw new IllegalArgumentException("fromPeriod không hợp lệ");
+        }
         this.fromPeriod = fromPeriod;
     }
 
     public void setToPeriod(int toPeriod) {
+        if (toPeriod - this.fromPeriod > this.device.getMaxBorrowPeriods()) {
+            throw new IllegalArgumentException("Không được mượn quá số tiết tối đa của thiết bị");
+        }
+        
         if (toPeriod < this.fromPeriod) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Tiết trả không được nhỏ hơn tiết bắt đầu mượn");
         }
 
         this.toPeriod = toPeriod;

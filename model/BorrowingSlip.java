@@ -24,8 +24,16 @@ public class BorrowingSlip {
             throw new IllegalArgumentException("Mã phiếu mượn không được rỗng");
         }
 
+        if (borrower == null) {
+            throw new IllegalArgumentException("Người mượn không hợp lệ");
+        }
+
         if (teachingRoom == null || teachingRoom.isBlank()) {
             throw new IllegalArgumentException("Tên phòng dạy không được rỗng");
+        }
+
+        if (borrowedDate == null) {
+            throw new IllegalArgumentException("Ngày mượn không hợp lệ");
         }
 
         this.slipId = slipId;
@@ -65,7 +73,7 @@ public class BorrowingSlip {
         LocalDate borrowedDate = this.borrowedDate;
         LocalDate dueDate = borrowedDate.plusDays(borrowDays);
 
-        BorrowItem newBorrowItem = new BorrowItem(device, borrowedDate, dueDate, 0, 12);
+        BorrowItem newBorrowItem = new BorrowItem(device, borrowedDate, dueDate);
         device.markAsBorrowed();
 
         items.add(newBorrowItem);
@@ -75,6 +83,10 @@ public class BorrowingSlip {
     public double returnDevice(String deviceId, LocalDate returnedDate) throws BorrowingException {
         if (deviceId == null || deviceId.isBlank()) {
             throw new IllegalArgumentException("Mã thiết bị không được rỗng");
+        }
+
+        if (returnedDate == null) {
+            throw new IllegalArgumentException("Ngày trả không hợp lệ");
         }
 
         for (BorrowItem item : this.items) {

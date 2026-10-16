@@ -23,6 +23,14 @@ public abstract class Device {
             throw new IllegalArgumentException("Năm đưa vào sử dụng không được lớn hơn năm hiện tại");
         }
 
+        if (purchasePrice <= 0) {
+            throw new IllegalArgumentException("Giá mua phải lớn hơn 0");
+        }
+
+        if (status == null) {
+            throw new IllegalArgumentException("Trạng thái không hợp lệ");
+        }
+
         this.deviceId = deviceId;
         this.deviceName = deviceName;
         this.commissioningYear = commissioningYear;
