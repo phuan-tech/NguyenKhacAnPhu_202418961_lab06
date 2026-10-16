@@ -1,3 +1,4 @@
+// Nguyễn Khắc An Phú 202418961
 package exception;
 
 public class InvalidBorrowPeriodException extends BorrowingException {
@@ -6,7 +7,7 @@ public class InvalidBorrowPeriodException extends BorrowingException {
     private int maxBorrowDays;
 
     public InvalidBorrowPeriodException(String deviceId, int borrowDays, int maxBorrowDays) {
-        super("Số ngày mượn không dương");
+        super("Số ngày mượn không hợp lệ");
         this.deviceId = deviceId;
         this.borrowDays = borrowDays;
         this.maxBorrowDays = maxBorrowDays;

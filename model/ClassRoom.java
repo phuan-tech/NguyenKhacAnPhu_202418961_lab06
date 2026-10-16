@@ -1,3 +1,4 @@
+// Nguyễn Khắc An Phú 202418961
 package model;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class ClassRoom {
         this.devices = new ArrayList<>();
     }
 
+    // Thêm thiết bị
     public void addDevice(Device device) {
         if (device == null) {
             throw new IllegalArgumentException("Thiết bị không hợp lệ");
@@ -32,6 +34,7 @@ public class ClassRoom {
         this.devices.add(device);
     }
 
+    // Xóa thiết bị
     public boolean removeDevice(String deviceId) {
         for (Device device : this.devices) {
             if (device.getDeviceId().equals(deviceId)) {
@@ -44,6 +47,7 @@ public class ClassRoom {
         return false;
     }
 
+    // Tìm thiết bị
     public Device findDevice(String deviceId) {
         for (Device device : this.devices) {
             if (device.getDeviceId().equals(deviceId)) {
@@ -53,6 +57,7 @@ public class ClassRoom {
         return null;
     }
 
+    // Tính chi phí bảo trì trong 1 năm
     public double calculateAnnualMaintenanceCost(){
         double cost = 0;
         for (Device device : devices) {
@@ -61,6 +66,7 @@ public class ClassRoom {
         return cost;
     }
 
+    // Trả về danh sách các thiết bị cần bảo trì
     public List<Device> getDevicesRequiringMaintenance() {
         List<Device> devicesRequiringMaintenance = new ArrayList<>();
         int currentYear = LocalDateTime.now().getYear();
@@ -89,6 +95,7 @@ public class ClassRoom {
         return this.capacity;
     }
 
+    // Hiển thị thông tin
     public void displayInfo() {
         System.out.printf("Mã phòng: %s%n", this.getRoomId());
         System.out.printf("Tên phòng: %s%n", this.getRoomName());

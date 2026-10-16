@@ -1,3 +1,5 @@
+// Nguyễn Khắc An Phú 202418961
+
 package model;
 
 import java.time.LocalDate;
@@ -32,31 +34,36 @@ public class BorrowingSlip {
         this.borrowedDate = borrowedDate;
     }
 
+    // Thêm thiết bị
     public void addDevice(TeachingDevice device, int borrowDays) throws BorrowingException {
         if (device == null) {
             throw new IllegalArgumentException("Thiết bị không được null");
         }
 
-        if (borrowDays <= 0) {
+        // Kiểm tra số ngày mượn
+        if (borrowDays <= 0 || borrowDays > device.getMaxBorrowDays()) {
             throw new InvalidBorrowPeriodException(device.getDeviceId(), borrowDays, device.getMaxBorrowDays());
         }
 
+        // Kiểm tra thiết bị đã có trong phiếu hay chưa
         for (BorrowItem item : this.items) {
             if (item.getTeachingDevice().getDeviceId().equals(device.getDeviceId())) {
                 throw new DuplicateDeviceException("Thiết bị đã tồn tại trong phiếu");
             }
         }
 
+        // Kiểm tra giới hạn mượn thiết bị
         if (this.items.size() >= this.borrower.getMaximumDevices()) {
             throw new BorrowLimitExceededException(this.borrower.getBorrowerId(), this.borrower.getMaximumDevices());
         }
 
+        // Kiểm tra trạng thái thiết bị
         if (device.getDeviceStatus() != DeviceStatus.AVAILABLE) {
             throw new DeviceUnavailableException(device.getDeviceId(), device.getDeviceStatus());
         }
 
-        LocalDate borrowedDate = LocalDate.now();
-        LocalDate dueDate = LocalDate.of(borrowedDate.getYear(), borrowedDate.getMonth(), borrowedDate.getDayOfMonth() + borrowDays);
+        LocalDate borrowedDate = this.borrowedDate;
+        LocalDate dueDate = borrowedDate.plusDays(borrowDays);
 
         BorrowItem newBorrowItem = new BorrowItem(device, borrowedDate, dueDate, 0, 12);
         device.markAsBorrowed();
@@ -64,6 +71,7 @@ public class BorrowingSlip {
         items.add(newBorrowItem);
     }
 
+    // Trả thiết bị và tính phí trả muộn
     public double returnDevice(String deviceId, LocalDate returnedDate) throws BorrowingException {
         if (deviceId == null || deviceId.isBlank()) {
             throw new IllegalArgumentException("Mã thiết bị không được rỗng");
@@ -85,6 +93,7 @@ public class BorrowingSlip {
         throw new DeviceNotInSlipException("Thiết bị không thuộc phiếu");
     }
 
+    // Tính tổng phí trả muộn
     public double calculateTotalLateFee() {
         double totalLateFee = 0;
         for (BorrowItem item : this.items) {
@@ -116,6 +125,7 @@ public class BorrowingSlip {
         return this.borrowedDate;
     }
 
+    // Hiển thị thông tin
     public void displayInfo() {
         System.out.printf("Mã phiếu mượn: %s%n", this.slipId);
         System.out.println("Thông tin người mượn: ");

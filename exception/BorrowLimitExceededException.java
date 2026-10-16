@@ -1,3 +1,4 @@
+// Nguyễn Khắc An Phú 202418961
 package exception;
 
 public class BorrowLimitExceededException extends BorrowingException {
@@ -5,7 +6,7 @@ public class BorrowLimitExceededException extends BorrowingException {
     private int maximumDevices;
 
     public BorrowLimitExceededException(String borrowerId, int maximumDevices) {
-        super("Người mượn" + borrowerId + "đã đạt giới hạn thiết bị");
+        super("Người mượn " + borrowerId + " đã đạt giới hạn thiết bị");
         this.borrowerId = borrowerId;
         this.maximumDevices = maximumDevices;
     }

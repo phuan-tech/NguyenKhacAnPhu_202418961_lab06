@@ -1,3 +1,4 @@
+// Nguyễn Khắc An Phú 202418961
 package device;
 import java.time.LocalDate;
 
@@ -29,14 +30,16 @@ public abstract class Device {
         this.status = status;
     }
 
+    // Tính chi phí bảo trì
     public abstract double calculateMaintenanceCost();
 
+    // Trả về thông tin dưới dạng chuỗi
     public String displayInfo() {
         return "Mã thiết bị: " + this.deviceId
-                + "Tên thiết bị: " + this.deviceName
-                + "Năm đưa vào sử dụng: " + this.commissioningYear
-                + "Giá mua: " + this.purchasePrice
-                + "Trạng thái hoạt động: " + this.status;
+                + "\nTên thiết bị: " + this.deviceName
+                + "\nNăm đưa vào sử dụng: " + this.commissioningYear
+                + "\nGiá mua: " + this.purchasePrice
+                + "\nTrạng thái hoạt động: " + this.status;
     }
 
     public String getDeviceId() {
@@ -55,10 +58,12 @@ public abstract class Device {
         return this.status;
     }
 
+    // Đánh dấu là đã mượn
     public void markAsBorrowed() {
         this.status = DeviceStatus.BORROWED;
     }
 
+    // Đánh dấu thiết bị đã sẵn sàng
     public void markAsAvailable() {
         this.status = DeviceStatus.AVAILABLE;
     }

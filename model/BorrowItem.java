@@ -1,3 +1,5 @@
+// Nguyễn Khắc An Phú 202418961
+
 package model;
 
 import java.time.LocalDate;
@@ -25,6 +27,7 @@ public class BorrowItem {
         this.setToPeriod(toPeriod);
     }
 
+    // Ghi lại ngày trả
     public void recordReturnDate(LocalDate returnedDate) {
         if (returnedDate.isBefore(this.borrowedDate)) {
             throw new IllegalArgumentException("Ngày trả không được trước ngày mượn");
@@ -81,22 +84,11 @@ public class BorrowItem {
         this.dueDate = dueDate;
     }
 
-    public boolean isOverdue(LocalDate currentDate) {
-        if (this.isReturned) {
-            return false;
-        }
-
-        return currentDate.isAfter(this.dueDate);
-    }
-
-    public boolean wasReturnedLate() {
-        return this.isReturned && this.returnedDate.isAfter(this.dueDate);
-    }
-
+    // Trả về thông tin 
     public String displayInfo() {
         return this.device.displayInfo()
-                + "Ngày mượn: " + this.borrowedDate
-                + "Ngày đến hạn: " + this.dueDate
-                + "Ngày trả: " + this.returnedDate;
+                + "\nNgày mượn: " + this.borrowedDate
+                + "\nNgày đến hạn: " + this.dueDate
+                + "\nNgày trả: " + this.returnedDate;
     }
 }

@@ -1,3 +1,4 @@
+// Nguyễn Khắc An Phú 202418961
 package exception;
 import device.DeviceStatus;
 
@@ -6,7 +7,7 @@ public class DeviceUnavailableException extends BorrowingException {
     private DeviceStatus currentStatus;
 
     public DeviceUnavailableException(String deviceId, DeviceStatus currentStatus) {
-        super("Thiết bị" + deviceId + "không ở trạng thái AVAILABLE");
+        super("Thiết bị " + deviceId + " không ở trạng thái AVAILABLE");
         this.deviceId = deviceId;
         this.currentStatus = currentStatus;
     }
